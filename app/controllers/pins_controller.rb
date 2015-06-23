@@ -22,7 +22,7 @@ class PinsController < ApplicationController
       redirect_to @pin, notice: 'Pin was successfully created.' 
         
     else
-        render :new 
+        render action:new 
        
     end
     
@@ -33,7 +33,7 @@ class PinsController < ApplicationController
     if @pin.update(pin_params)
         redirect_to @pin, notice: 'Pin was successfully updated.' 
     else
-        render :edit 
+        render action:edit 
     end
     
   end
@@ -51,7 +51,7 @@ class PinsController < ApplicationController
     end
 
     def correct_user
-      @pin = current_user.pin.find(id: params[:id])
+      @pin = current_user.pins.find_by(id: params[:id])
       redirect_to pins_path, notice: "Not authorised to edit this pin" if @pin.nil?
       
     end
